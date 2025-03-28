@@ -1,0 +1,22 @@
+{
+  "name": "cg-selfarena",
+  "version": "1.0.0",
+  "description": "Test bots locally",
+  "main": "src/selfarena.ts",
+  "scripts": {
+    "start": "bun src/selfarena.ts"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
+    "minimist": "^1.2.8",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "^4.14.199",
+    "@types/minimist": "^1.2.3",
+    "@types/node": "^20.8.0",
+    "typescript": "^5.2.2"
+  }
+}

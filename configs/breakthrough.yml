@@ -1,0 +1,22 @@
+# Referee configuration
+referee:
+  command: "java -jar <config_dir>/../../referees/Breakthrough-1.0-SNAPSHOT.jar"
+
+# Players configuration
+players:
+  - name: "Node final"
+    command: "node -r <config_dir>/../../inputs/js_helper.js <config_dir>/../../out_js_final"
+
+  - name: "Rust"
+    command: "<config_dir>/../../target/debug/breakthrough.exe"
+
+# Game settings
+game:
+  seeds: 0 # Means random seed
+  games_per_matchup: 100
+  players_per_game: 2
+  swap_positions: true
+
+# Runtime configuration
+execution:
+  batches: 20
