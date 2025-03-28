@@ -10,7 +10,7 @@ SelfArena orchestrates matches between your AI implementations, collects statist
 
 - `Bun` to execute the project
 - Node.js
-- Java or Docker (for running referee JARs)
+- Java (for running referee JARs)
 
 ## Installation
 
