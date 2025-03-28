@@ -10,8 +10,7 @@ SelfArena orchestrates matches between your AI implementations, collects statist
 
 - `Bun` to execute the project
 - Node.js
-- TypeScript
-- Java (for running referee JARs)
+- Java or Docker (for running referee JARs)
 
 ## Installation
 
@@ -21,8 +20,6 @@ git clone https://github.com/Telokis/cg-selfarena.git
 cd selfarena
 
 # Install dependencies
-npm install
-# or
 bun install
 ```
 
@@ -30,7 +27,8 @@ bun install
 
 1. Create a YAML configuration file in the `configs/` directory
 2. Place referee JARs in the `referees/` directory
-3. Run a tournament:
+3. Place your bots in the `bots/` directory
+4. Run a tournament:
 
 ```bash
 bun run start -- configs/breakthrough.yml
@@ -57,14 +55,14 @@ Example `configs/breakthrough.yml`:
 
 ```yaml
 referee:
-  command: "java -jar <config_dir>/../../referees/Breakthrough-1.0-SNAPSHOT.jar"
+  command: "java -jar <config_dir>/../referees/Breakthrough-1.0-SNAPSHOT.jar"
 
 players:
   - name: "MCTS Bot"
-    command: "node -r <config_dir>/../../helpers/js_helper.js <config_dir>/../../my_mcts_bot.js"
+    command: "node -r <config_dir>/../helpers/js_helper.js <config_dir>/../bots/my_mcts_bot.js"
 
   - name: "Minimax Bot"
-    command: "<config_dir>/../../target/debug/my_minimax_bot.exe"
+    command: "<config_dir>/../bots/my_minimax_bot.exe"
 
 game:
   seed: 0  # Random seed
@@ -75,6 +73,11 @@ game:
 execution:
   batches: 20 # Runs at most 20 matchs in parallel
 ```
+
+In the config file, you can use:
+- `<config_dir>` to point to the directory the config is located in
+- `<bots_dir>` which is a shortcut to `<config_dir>/../bots`
+- `<referees_dir>` which is a shortcut to `<config_dir>/../referees`
 
 ## Output
 

@@ -93,14 +93,13 @@ export function getConfig(): SelfArenaConfig {
 
   const configPath = positionalArgs[0];
   let validatedConfig: FileConfig;
+  const configDir = path.dirname(path.resolve(configPath));
 
   try {
     // Read and parse YAML config file
     const configContent = fs.readFileSync(configPath, "utf8");
     const parsedConfig = yaml.load(configContent) as Record<string, any>;
 
-    // Replace <config_dir> placeholder in paths
-    const configDir = path.dirname(path.resolve(configPath));
     const processedConfig = replaceConfigDirPlaceholder(parsedConfig, configDir);
 
     // Validate with Zod
@@ -135,9 +134,13 @@ export function getConfig(): SelfArenaConfig {
 
     // Parse players from validated config
     for (const player of validatedConfig.players) {
-      config.playerCommands.push(`"${player.command}"`);
+      const cmd = replaceConfigDirPlaceholder(injectPlayerCommandHelper(player.command), configDir);
+
+      config.playerCommands.push(`"${cmd}"`);
       config.playerNames.push(player.name || `P${config.playerCommands.length}`);
     }
+
+    console.log(config.playerCommands);
 
     // Override with CLI arguments if provided
     if (argv.seed !== null) {
@@ -184,6 +187,20 @@ export function getConfig(): SelfArenaConfig {
   return config;
 }
 
+function injectPlayerCommandHelper(cmd: string): string {
+  // For NodeJS, we need to add `-r <helpers_dir>/js_helper.js` right after the "node" string
+  if (cmd.startsWith("node")) {
+    const args = smartSplit(cmd);
+    const index = args.indexOf("node");
+    if (index !== -1) {
+      args.splice(index + 1, 0, "-r", "<helpers_dir>/js_helper.js");
+      return args.join(" ");
+    }
+  }
+
+  return cmd;
+}
+
 /**
  * Splits a command string into an array of arguments while respecting quotes
  */
@@ -218,15 +235,25 @@ function smartSplit(cmd: string): string[] {
  * Recursively replace <config_dir> placeholder in strings
  */
 function replaceConfigDirPlaceholder(obj: any, configDir: string): any {
+  const botsDir = path.join(configDir, "..", "bots");
+  const helpersDir = path.join(configDir, "..", "helpers");
+  const refereesDir = path.join(configDir, "..", "referees");
+
   if (typeof obj === "string") {
-    return obj.replace(/<config_dir>/g, configDir);
+    return obj
+      .replaceAll("<config_dir>", configDir)
+      .replaceAll("<bots_dir>", botsDir)
+      .replaceAll("<helpers_dir>", helpersDir)
+      .replaceAll("<referees_dir>", refereesDir);
   } else if (Array.isArray(obj)) {
     return obj.map((item) => replaceConfigDirPlaceholder(item, configDir));
   } else if (typeof obj === "object" && obj !== null) {
     const result: any = {};
+
     for (const key in obj) {
       result[key] = replaceConfigDirPlaceholder(obj[key], configDir);
     }
+
     return result;
   }
   return obj;

@@ -1,14 +1,14 @@
 # Referee configuration
 referee:
-  command: "java -jar <config_dir>/../../referees/Breakthrough-1.0-SNAPSHOT.jar"
+  command: "java -jar <referees_dir>/Breakthrough-1.0-SNAPSHOT.jar"
 
 # Players configuration
 players:
   - name: "Node final"
-    command: "node -r <config_dir>/../../inputs/js_helper.js <config_dir>/../../out_js_final"
+    command: "node <bots_dir>/breakthrough_final.js"
 
   - name: "Rust"
-    command: "<config_dir>/../../target/debug/breakthrough.exe"
+    command: "<bots_dir>/breakthrough.exe"
 
 # Game settings
 game:

@@ -26,7 +26,9 @@ export class Match {
     };
 
     try {
-      const command: string[] = [...this.config.refereeCommand];
+      const command: string[] = [
+        ...this.config.refereeCommand.map((cmd) => cmd.replaceAll("${matchId}", this.matchId.toString())),
+      ];
 
       command.push("-d", `seed=${this.seed}`);
 
