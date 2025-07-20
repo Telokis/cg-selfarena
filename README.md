@@ -55,20 +55,20 @@ Example `configs/breakthrough.yml`:
 
 ```yaml
 referee:
-  command: "java -jar <config_dir>/../referees/Breakthrough-1.0-SNAPSHOT.jar"
+  command: "java -jar <referees_dir>/Breakthrough-1.0-SNAPSHOT.jar"
 
 players:
   - name: "MCTS Bot"
-    command: "node -r <config_dir>/../helpers/js_helper.js <config_dir>/../bots/my_mcts_bot.js"
+    command: "node <bots_dir>/my_mcts_bot.js"
 
   - name: "Minimax Bot"
-    command: "<config_dir>/../bots/my_minimax_bot.exe"
+    command: "<bots_dir>/my_minimax_bot.exe"
 
 game:
   seed: 0  # Random seed
   games_per_matchup: 100
   players_per_game: 2
-  swap_positions: true
+  swap_positions: true # Play each match as both sides (white and black)
 
 execution:
   batches: 20 # Runs at most 20 matchs in parallel
@@ -78,6 +78,8 @@ In the config file, you can use:
 - `<config_dir>` to point to the directory the config is located in
 - `<bots_dir>` which is a shortcut to `<config_dir>/../bots`
 - `<referees_dir>` which is a shortcut to `<config_dir>/../referees`
+
+Note: for `node` commands, the tool automatically adds `-r <helpers_dir>/js_helper.js` to give you access to `readline()`.
 
 ## Output
 
