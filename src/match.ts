@@ -44,7 +44,10 @@ export class Match {
       }
 
       // Process output - remove warnings and normalize line endings
-      let cleanOutput = output.replace(/^WARNING:.*\n/gim, "").replace(/\r\n/g, "\n");
+      let cleanOutput = output
+        .replace(/\r\n/g, "\n")
+        .replace(/\n\n/g, "\n")
+        .replace(/^WARNING:.*\n/gim, "");
 
       const fields = cleanOutput.trim().split(/\s+/);
 
