@@ -38,7 +38,7 @@ function displayHelpMessage(): void {
 SelfArena - Tournament runner for competitive games
 
 Usage:
-  bun run start -- <config.yml> [options]
+  npm run start -- <config.yml> [options]
 
 Options:
   -seed <num>                      Override the seed (default: from config or 0)
@@ -49,8 +49,8 @@ Options:
   -q, --quiet                      Hide the match detailed output
 
 Examples:
-  bun run start -- config.yml --seed 33 --games 10
-  bun run start -- tournament.yml --swap -n 5
+  npm run start -- config.yml --seed 33 --games 10
+  npm run start -- tournament.yml --swap -n 5
 `);
 }
 
