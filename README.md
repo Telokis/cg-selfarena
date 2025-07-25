@@ -8,7 +8,6 @@ SelfArena orchestrates matches between your AI implementations, collects statist
 
 ## Requirements
 
-- `Bun` to execute the project
 - Node.js
 - Java (for running referee JARs)
 
@@ -20,7 +19,7 @@ git clone https://github.com/Telokis/cg-selfarena.git
 cd selfarena
 
 # Install dependencies
-bun install
+npm install
 ```
 
 ## Usage
@@ -31,7 +30,7 @@ bun install
 4. Run a tournament:
 
 ```bash
-bun run start -- configs/breakthrough.yml
+npm run start -- configs/breakthrough.yml
 ```
 
 ### CLI Options
@@ -39,7 +38,7 @@ bun run start -- configs/breakthrough.yml
 Override configuration settings. Using the following CLI options will override the values specified in the config file:
 
 ```bash
-bun run start -- configs/breakthrough.yml -n 50 --seed 42 --batches 10 --swap
+npm run start -- configs/breakthrough.yml -n 50 --seed 42 --batches 10 --swap
 ```
 
 Options:

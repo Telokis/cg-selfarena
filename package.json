@@ -4,7 +4,7 @@
   "description": "Test bots locally",
   "main": "src/selfarena.ts",
   "scripts": {
-    "start": "bun src/selfarena.ts"
+    "start": "ts-node src/selfarena.ts"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
@@ -17,6 +17,7 @@
     "@types/lodash": "^4.14.199",
     "@types/minimist": "^1.2.3",
     "@types/node": "^20.8.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
   }
 }
