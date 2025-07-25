@@ -65,15 +65,23 @@ export class Stats {
     }
   }
 
-  printMatchStats(result: MatchResult, id: number, playerNames: string[], totalMatches: number): void {
+  printMatchStats(
+    result: MatchResult,
+    id: number,
+    playerNames: string[],
+    totalMatches: number,
+    printInfo: boolean,
+  ): void {
     const padding = totalMatches.toString().length;
     const infos = result.players.map((playerId) => `${playerNames[playerId]}:${result.scores[playerId]}`);
 
-    console.log(
-      `Match ${(id + 1).toString().padStart(padding, " ")}/${totalMatches}:  Seed=${result.seed
-        .toString()
-        .padEnd(10, " ")}  ${infos.join(" | ")}`,
-    );
+    if (printInfo) {
+      console.log(
+        `Match ${(id + 1).toString().padStart(padding, " ")}/${totalMatches}:  Seed=${result.seed
+          .toString()
+          .padEnd(10, " ")}  ${infos.join(" | ")}`,
+      );
+    }
   }
 
   printStats(playerNames: string[]): void {

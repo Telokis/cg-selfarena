@@ -85,7 +85,7 @@ async function main() {
     const runMatch = async (index: number, match: Match) => {
       const result = await match.run();
 
-      stats.printMatchStats(result, index, config.playerNames, totalMatches);
+      stats.printMatchStats(result, index, config.playerNames, totalMatches, !config.quiet);
 
       return result;
     };

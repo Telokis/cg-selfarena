@@ -7,6 +7,7 @@ export interface SelfArenaConfig {
   playersPerGame: number;
   swap: boolean;
   batches: number;
+  quiet: boolean;
 }
 
 export interface MatchResult {

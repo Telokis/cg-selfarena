@@ -46,6 +46,7 @@ Options:
   --swap                           Override asymmetric map handling (default: from config)
   -b, --batch, --batches <num>     Override simultaneous batches to run (default: from config)
   -h, --help                       Display this help message
+  -q, --quiet                      Hide the match detailed output
 
 Examples:
   bun run start -- config.yml --seed 33 --games 10
@@ -58,7 +59,7 @@ Examples:
  */
 export function getConfig(): SelfArenaConfig {
   const argv = minimist(process.argv.slice(2), {
-    boolean: ["swap", "h", "help"],
+    boolean: ["swap", "h", "help", "quiet"],
     default: {
       seed: null,
       n: null,
@@ -69,11 +70,14 @@ export function getConfig(): SelfArenaConfig {
       batches: null,
       h: false,
       help: false,
+      q: false,
+      quiet: false,
     },
     alias: {
       n: ["games"],
       b: ["batch", "batches"],
       h: ["help"],
+      q: ["quiet"],
     },
   });
 
@@ -126,6 +130,7 @@ export function getConfig(): SelfArenaConfig {
     playersPerGame: validatedConfig.game.players_per_game,
     swap: validatedConfig.game.swap_positions,
     batches: validatedConfig.execution?.batches || 20,
+    quiet: false,
   };
 
   try {
@@ -153,6 +158,10 @@ export function getConfig(): SelfArenaConfig {
 
     if (argv.swap !== null) {
       config.swap = Boolean(argv.swap);
+    }
+
+    if (argv.quiet !== null) {
+      config.quiet = Boolean(argv.quiet);
     }
 
     if (argv.b !== null) {
@@ -235,9 +244,9 @@ function smartSplit(cmd: string): string[] {
  * Recursively replace <config_dir> placeholder in strings
  */
 function replaceConfigDirPlaceholder(obj: any, configDir: string): any {
-  const botsDir = path.join(configDir, "..", "bots");
-  const helpersDir = path.join(configDir, "..", "helpers");
-  const refereesDir = path.join(configDir, "..", "referees");
+  const botsDir = path.join(configDir, "..", "bots").replaceAll("\\", "/");
+  const helpersDir = path.join(configDir, "..", "helpers").replaceAll("\\", "/");
+  const refereesDir = path.join(configDir, "..", "referees").replaceAll("\\", "/");
 
   if (typeof obj === "string") {
     return obj

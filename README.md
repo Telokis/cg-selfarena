@@ -47,6 +47,7 @@ Options:
 - `-seed <num>`: Set a specific random seed
 - `-b, --batches <num>`: Number of parallel matches
 - `--swap`: Enable position swapping (for games with first-player advantage)
+- `-q, --quiet`: Disable per-match logging
 - `-h, --help`: Display help
 
 ## Configuration
